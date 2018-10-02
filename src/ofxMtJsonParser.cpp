@@ -68,8 +68,8 @@ void ofxMtJsonParser::onJsonDownload(ofxSimpleHttpResponse & arg){
 		setState(CHECKING_JSON);
 	}else{
 		ofLogError("ofxMtJsonParser") << "download failed! " << arg.reasonForStatus;
-		ofNotifyEvent(eventJsonDownloadFailed, arg, this);
 		setState(DOWNLOAD_FAILED);
+        ofNotifyEvent(eventJsonDownloadFailed, arg, this);
 	}
 }
 
@@ -117,12 +117,12 @@ void ofxMtJsonParser::checkLocalJsonAndSplitWorkload(){ //this runs on a thread
 	bool ok = true;
 	json = new ofxJSONElement();
 	bool parsingSuccessful;
-	ofLogNotice("ofxMtJsonParser") << "Checking JSON...";
+	ofLogNotice("ofxMtJsonParser::checkLocalJsonAndSplitWorkload") << "Checking JSON...";
 	parsingSuccessful = json->open(jsonAbsolutePath);
 
 	if(parsingSuccessful){
 
-		ofLogNotice("ofxMtJsonParser") << "JSON Check Successful!";
+		ofLogNotice("ofxMtJsonParser") << "JSON Check Successful for " << jsonAbsolutePath <<"!";
 		ofNotifyEvent(eventJsonInitialCheckOK, this);
 
 		//run the user lambda!
